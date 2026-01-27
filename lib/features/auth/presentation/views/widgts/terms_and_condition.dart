@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fruit_app/core/utils/app_color.dart';
 import 'package:fruit_app/core/utils/test_style.dart';
-import 'package:fruit_app/features/auth/presentation/views/widgts/custom_chix_box.dart';
+import 'package:fruit_app/features/auth/presentation/views/widgts/custom_chex_box.dart';
 
 class TermsAndConditionsWidget extends StatefulWidget {
-  const TermsAndConditionsWidget({super.key});
+  const TermsAndConditionsWidget({super.key, required this.onChanged});
 
+  final ValueChanged<bool> onChanged;
   @override
   State<TermsAndConditionsWidget> createState() =>
       _TermsAndConditionsWidgetState();
 }
 
 class _TermsAndConditionsWidgetState extends State<TermsAndConditionsWidget> {
-  late bool isTermsAccepted = false;
+  bool isTermsAccepted = false;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         CustomChexBox(
-          isChecked: isTermsAccepted,
           onChecked: (value) {
             isTermsAccepted = value;
+            widget.onChanged(value);
             setState(() {});
           },
+          isChecked: isTermsAccepted,
         ),
         const SizedBox(
           width: 16,
@@ -66,7 +69,7 @@ class _TermsAndConditionsWidgetState extends State<TermsAndConditionsWidget> {
             ),
             textAlign: TextAlign.right,
           ),
-        ),
+        )
       ],
     );
   }
