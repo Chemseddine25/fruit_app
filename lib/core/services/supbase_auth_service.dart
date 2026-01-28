@@ -46,4 +46,46 @@ class SupbaseAuthService {
           message: 'لقد حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى.');
     }
   }
+
+  Future<User> loginUserFunc({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final AuthResponse res =
+          await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+
+      return res.user!;
+    } on AuthException catch (e) {
+      final String status = e.statusCode?.toString() ?? '';
+      final String errorMessage = e.message.toLowerCase();
+
+      if (errorMessage.contains('clientexception') ||
+          errorMessage.contains('socketexception') ||
+          status == '0') {
+        throw CustomException(message: 'تأكد من اتصالك بالإنترنت.');
+      }
+
+      if (errorMessage.contains('invalid login credentials') ||
+          status == '400') {
+        throw CustomException(
+            message: 'البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+      } else if (errorMessage.contains('email not confirmed')) {
+        throw CustomException(
+            message: 'يرجى تأكيد بريدك الإلكتروني أولاً لتتمكن من الدخول.');
+      } else if (errorMessage.contains('too many requests') ||
+          status == '429') {
+        throw CustomException(
+            message:
+                'محاولات كثيرة جداً. يرجى الانتظار قليلاً والمحاولة مرة أخرى.');
+      } else {
+        throw CustomException(message: errorMessage);
+      }
+    } catch (e) {
+      throw CustomException(message: 'حدث خطأ غير متوقع.');
+    }
+  }
 }

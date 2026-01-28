@@ -26,4 +26,17 @@ class AuthRepoImpl extends AuthRepo {
       return Left(ServerFailure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> loginUser(
+      String email, String password) async {
+    try {
+      var user = await supbaseAuthService.loginUserFunc(
+          email: email, password: password);
+
+      return Right(UserModel.fromSupbaseUser(user));
+    } on CustomException catch (e) {
+      return Left(ServerFailure(e.message));
+    }
+  }
 }

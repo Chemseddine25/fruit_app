@@ -6,7 +6,7 @@ import 'package:fruit_app/core/widgets/custom_boutton.dart';
 import 'package:fruit_app/core/widgets/custom_textfieldform.dart';
 import 'package:fruit_app/core/widgets/have_an_account_widget.dart';
 import 'package:fruit_app/core/widgets/password_formfiled.dart';
-import 'package:fruit_app/features/auth/presentation/cubits/cubit/sing_up_cubit.dart';
+import 'package:fruit_app/features/auth/presentation/cubits/singup/sing_up_cubit.dart';
 import 'package:fruit_app/features/auth/presentation/views/widgts/terms_and_condition.dart';
 
 class SingupViewBody extends StatefulWidget {
@@ -75,7 +75,7 @@ class _SingupViewBodyState extends State<SingupViewBody> {
                     } else {
                       showBar(
                         context,
-                        'يجب الموافقة على الشروط والأحكام لإنشاء حساب',
+                        message: 'يجب الموافقة على الشروط والأحكام لإنشاء حساب',
                       );
                     }
                   } else {

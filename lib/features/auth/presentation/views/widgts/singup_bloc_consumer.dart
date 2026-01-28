@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_app/features/auth/presentation/cubits/cubit/sing_up_cubit.dart';
+import 'package:fruit_app/features/auth/presentation/cubits/singup/sing_up_cubit.dart';
 import 'package:fruit_app/features/auth/presentation/views/widgts/singup_view_body.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
