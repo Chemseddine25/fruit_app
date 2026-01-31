@@ -1,15 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:fruit_app/core/errors/custom_expection.dart';
 import 'package:fruit_app/core/errors/failures.dart';
+import 'package:fruit_app/core/services/database_service.dart';
 import 'package:fruit_app/core/services/supbase_auth_service.dart';
+import 'package:fruit_app/core/utils/back_end.dart';
 import 'package:fruit_app/features/auth/data/models/user_model.dart';
 import 'package:fruit_app/features/auth/domain/entities/user_entity.dart';
 import 'package:fruit_app/features/auth/domain/repos/auth_repo.dart';
 
 class AuthRepoImpl extends AuthRepo {
   final SupbaseAuthService supbaseAuthService;
+  final DatabaseService databaseService;
 
-  AuthRepoImpl({required this.supbaseAuthService});
+  AuthRepoImpl(
+      {required this.databaseService, required this.supbaseAuthService});
   @override
   //
   Future<Either<Failure, UserEntity>> singUpUser(
@@ -21,7 +25,10 @@ class AuthRepoImpl extends AuthRepo {
       var user = await supbaseAuthService.singUpUserFunc(
           name: name, email: email, password: password);
 
-      return Right(UserModel.fromSupbaseUser(user));
+      var userEntity = UserModel.fromSupbaseUser(user);
+      await adduserData(userEntity);
+
+      return Right(userEntity);
     } on CustomException catch (e) {
       return Left(ServerFailure(e.message));
     }
@@ -38,5 +45,10 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomException catch (e) {
       return Left(ServerFailure(e.message));
     }
+  }
+
+  @override
+  Future adduserData(UserEntity user) {
+    return databaseService.addData(BackendEndpoint.addUserData, user.toMap());
   }
 }

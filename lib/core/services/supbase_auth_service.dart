@@ -31,8 +31,12 @@ class SupbaseAuthService {
       } else if (e.message.toLowerCase().contains('already registered')) {
         throw CustomException(
             message: 'لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.');
+      } else if (e.message.contains('rate limit exceeded') || status == '429') {
+        throw CustomException(
+            message:
+                'لقد قمت بطلبات كثيرة. يرجى الانتظار ساعة والمحاولة مرة أخرى.');
       } else {
-        throw CustomException(message: 'خطأ في المصادقة: ');
+        throw CustomException(message: 'خطأ في المصادقة: ${e.message}');
       }
     } catch (e) {
       log("Supabase Unknown Error: ${e.toString()}");
