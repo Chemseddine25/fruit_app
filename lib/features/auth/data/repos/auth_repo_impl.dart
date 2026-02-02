@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:fruit_app/core/errors/custom_expection.dart';
 import 'package:fruit_app/core/errors/failures.dart';
@@ -67,7 +69,10 @@ class AuthRepoImpl extends AuthRepo {
       var user = await supbaseAuthService.loginUserFunc(
           email: email, password: password);
 
-      return Right(UserModel.fromSupbaseUser(user));
+      var userData = await getUserData(user.id);
+      print(userData);
+
+      return Right(userData);
     } on CustomException catch (e) {
       return Left(ServerFailure(e.message));
     }
@@ -76,5 +81,20 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future adduserData(UserEntity user) {
     return databaseService.addData(BackendEndpoint.addUserData, user.toMap());
+  }
+
+  Future<UserEntity> getUserData(String id) async {
+    try {
+      var userData =
+          await databaseService.getData(BackendEndpoint.addUserData, id);
+
+      return UserModel.fromJson(userData);
+    } on CustomException {
+      rethrow; // نعيد تمرير الخطأ المخصص الذي أنشأناه في الـ Database
+    } catch (e) {
+      log('Unexpected error in getUserData',
+          name: 'AUTH_REPO', error: e, stackTrace: StackTrace.current);
+      throw CustomException(message: e.toString());
+    }
   }
 }
