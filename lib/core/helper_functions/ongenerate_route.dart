@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_app/features/auth/presentation/views/login_view.dart';
 import 'package:fruit_app/features/auth/presentation/views/singup_view.dart';
+import 'package:fruit_app/features/home_view/presentation/views/home_view.dart';
 import 'package:fruit_app/features/onbording_view/presentaion/views/onbording_view.dart';
 import 'package:fruit_app/features/splash_view/presentation/views/splash_view.dart';
 
@@ -21,6 +22,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case SingupView.routeName:
       return MaterialPageRoute(
         builder: (context) => const SingupView(),
+      );
+    case HomeView.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const HomeView(),
       );
     default:
       return MaterialPageRoute(

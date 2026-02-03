@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_app/core/helper_functions/show_error_bar.dart';
 import 'package:fruit_app/features/auth/presentation/cubits/login/login_cubit.dart';
 import 'package:fruit_app/features/auth/presentation/views/widgts/login_view_body.dart';
+import 'package:fruit_app/features/home_view/presentation/views/home_view.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginBlocConsumer extends StatelessWidget {
@@ -20,6 +21,7 @@ class LoginBlocConsumer extends StatelessWidget {
         }
         if (state is LoginSuccess) {
           showBar(context, message: 'تم تسجيل الدخول بنجاح');
+          Navigator.of(context).pushReplacementNamed(HomeView.routeName);
         }
       },
       builder: (context, state) {

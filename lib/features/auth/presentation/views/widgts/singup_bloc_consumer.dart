@@ -29,8 +29,8 @@ class SingupViewBodyBlocConsumer extends StatelessWidget {
               backgroundColor: Colors.green,
             ),
           );
+          Navigator.pop(context);
         }
-        print('yess ');
       },
       builder: (context, state) {
         return ModalProgressHUD(

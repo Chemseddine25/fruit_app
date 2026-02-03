@@ -69,10 +69,10 @@ class AuthRepoImpl extends AuthRepo {
       var user = await supbaseAuthService.loginUserFunc(
           email: email, password: password);
 
-      var userData = await getUserData(user.id);
-      print(userData);
+      var userEntity = await getUserData(user.id);
+      print(userEntity);
 
-      return Right(userData);
+      return Right(userEntity);
     } on CustomException catch (e) {
       return Left(ServerFailure(e.message));
     }
