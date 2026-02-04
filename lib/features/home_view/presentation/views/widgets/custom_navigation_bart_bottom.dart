@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruit_app/features/home_view/presentation/views/widgets/active_icon.dart';
 
-import 'bottom_navigation_bar_entity.dart';
+import '../../../domain/entities/bottom_navigation_bar_entity.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({super.key});
