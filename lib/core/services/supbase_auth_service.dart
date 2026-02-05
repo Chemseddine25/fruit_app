@@ -92,4 +92,8 @@ class SupbaseAuthService {
       throw CustomException(message: 'حدث خطأ غير متوقع.');
     }
   }
+
+  bool isUserLoggedIn() {
+    return Supabase.instance.client.auth.currentSession != null;
+  }
 }

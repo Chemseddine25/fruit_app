@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_app/core/utils/app_color.dart';
 import 'package:fruit_app/core/utils/test_style.dart';
-import 'package:fruit_app/features/auth/presentation/views/singup_view.dart';
 import 'package:fruit_app/features/home_view/presentation/views/home_view.dart';
 
 class DontHaveAnAccountWidget extends StatelessWidget {
