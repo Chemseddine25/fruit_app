@@ -60,7 +60,6 @@ class _OnbordingViewBodyState extends State<OnbordingViewBody> {
             onPressed: () {
               Prefs.setBool('onbording', true);
               Navigator.pushReplacementNamed(context, LoginView.routeName);
-              print('yess true');
             },
             text: 'ابدأ الآن',
           ),

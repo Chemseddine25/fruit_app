@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
+import 'package:fruit_app/constante.dart';
 import 'package:fruit_app/core/errors/custom_expection.dart';
 import 'package:fruit_app/core/errors/failures.dart';
 import 'package:fruit_app/core/services/database_service.dart';
+import 'package:fruit_app/core/services/share_perfences.dart';
 import 'package:fruit_app/core/services/supbase_auth_service.dart';
 import 'package:fruit_app/core/utils/back_end.dart';
 import 'package:fruit_app/features/auth/data/models/user_model.dart';
@@ -50,6 +53,8 @@ class AuthRepoImpl extends AuthRepo {
 
       var userEntity = UserEntity(name: name, email: email, uId: user.id);
 
+      print("userEntity save $userEntity");
+
       await adduserData(userEntity);
 
       return Right(userEntity);
@@ -70,6 +75,8 @@ class AuthRepoImpl extends AuthRepo {
           email: email, password: password);
 
       var userEntity = await getUserData(user.id);
+      await saveUserData(user: userEntity);
+
       print(userEntity);
 
       return Right(userEntity);
@@ -80,7 +87,8 @@ class AuthRepoImpl extends AuthRepo {
 
   @override
   Future adduserData(UserEntity user) {
-    return databaseService.addData(BackendEndpoint.addUserData, user.toMap());
+    return databaseService.addData(
+        BackendEndpoint.addUserData, UserModel.fromEntity(user).toMap());
   }
 
   Future<UserEntity> getUserData(String id) async {
@@ -96,5 +104,11 @@ class AuthRepoImpl extends AuthRepo {
           name: 'AUTH_REPO', error: e, stackTrace: StackTrace.current);
       throw CustomException(message: e.toString());
     }
+  }
+
+  @override
+  Future saveUserData({required UserEntity user}) async {
+    var jsondata = jsonEncode(UserModel.fromEntity(user).toMap());
+    await Prefs.setString(kUserData, jsondata);
   }
 }
