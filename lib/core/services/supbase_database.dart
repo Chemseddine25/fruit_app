@@ -9,8 +9,28 @@ class SupbaseDatabase extends DatabaseService {
   }
 
   @override
-  Future<Map<String, dynamic>> getData(String path, String id) async {
-    final data = await _client.from(path).select().eq('uId', id).single();
-    return data;
+  Future<dynamic> getData(
+      {required String path, String? id, Map<String, dynamic>? filter}) async {
+    if (id != null) {
+      final data = await _client.from(path).select().eq('uId', id).single();
+      return data;
+    } else {
+      dynamic data = _client.from(path).select();
+
+      if (filter != null) {
+        if (filter["orderby"] != null) {
+          var orderby = filter["orderby"];
+          var descending = filter["descending"];
+          data = data.order(orderby, ascending: !(descending ?? false));
+        }
+        if (filter["limit"] != null) {
+          var limit = filter["limit"];
+          data = data.limit(limit);
+        }
+      }
+
+      var result = await data;
+      return result;
+    }
   }
 }
