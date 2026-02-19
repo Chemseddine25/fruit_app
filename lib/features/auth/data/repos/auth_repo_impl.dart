@@ -74,7 +74,7 @@ class AuthRepoImpl extends AuthRepo {
       var user = await supbaseAuthService.loginUserFunc(
           email: email, password: password);
 
-      var userEntity = await getUserData(user.id);
+      var userEntity = await getUserData(id: user.id);
       await saveUserData(user: userEntity);
 
       print(userEntity);
@@ -91,10 +91,12 @@ class AuthRepoImpl extends AuthRepo {
         BackendEndpoint.addUserData, UserModel.fromEntity(user).toMap());
   }
 
-  Future<UserEntity> getUserData(String id) async {
+  Future<UserEntity> getUserData({required String id}) async {
     try {
       var userData =
-          await databaseService.getData(BackendEndpoint.addUserData, id);
+          //await databaseService.getData(BackendEndpoint.addUserData, id);
+          await databaseService.getData(
+              path: BackendEndpoint.addUserData, id: id);
 
       return UserModel.fromJson(userData);
     } on CustomException {
