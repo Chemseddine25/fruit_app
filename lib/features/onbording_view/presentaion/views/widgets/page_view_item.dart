@@ -47,7 +47,6 @@ class PageViewItem extends StatelessWidget {
                       Prefs.setBool('onbording', true);
                       Navigator.pushReplacementNamed(
                           context, LoginView.routeName);
-                      print('yess true');
                     },
                     child: Text(
                       'تخط',
