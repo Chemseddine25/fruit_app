@@ -8,6 +8,8 @@ abstract class FavoriteRepo {
   Future<Either<Failure, List<FavoriteEntity>>> getFavorites();
   Future<Either<Failure, void>> removeFromFavorite(String favoriteId);
 
-  Future<Either<Failure, void>> updateFavoriteQuantity(
-      {required String favoriteId, required int quantity});
+  Future<Either<Failure, void>> updateFavoriteQuantity({
+    required String favoriteId,
+    required int quantity,
+  });
 }
