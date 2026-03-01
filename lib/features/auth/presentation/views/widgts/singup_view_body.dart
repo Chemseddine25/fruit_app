@@ -36,7 +36,6 @@ class _SingupViewBodyState extends State<SingupViewBody> {
               CustomTextFormField(
                 onSaved: (value) {
                   name = value!;
-                  print(name);
                 },
                 hintText: 'الاسم الكامل',
                 textInputType: TextInputType.name,

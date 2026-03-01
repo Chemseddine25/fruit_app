@@ -10,27 +10,47 @@ class SupbaseDatabase extends DatabaseService {
 
   @override
   Future<dynamic> getData(
-      {required String path, String? id, Map<String, dynamic>? filter}) async {
-    if (id != null) {
-      final data = await _client.from(path).select().eq('uId', id).single();
+      {required String path,
+      //Map<String, dynamic>? query,
+      String? id,
+      String? queryName,
+      String columns = '*',
+      Map<String, dynamic>? filter}) async {
+    dynamic data = _client.from(path).select(columns);
+
+    if (id != null && queryName != null) {
+      data = data.eq(queryName, id);
+
       return data;
-    } else {
-      dynamic data = _client.from(path).select();
-
-      if (filter != null) {
-        if (filter["orderby"] != null) {
-          var orderby = filter["orderby"];
-          var descending = filter["descending"];
-          data = data.order(orderby, ascending: !(descending ?? false));
-        }
-        if (filter["limit"] != null) {
-          var limit = filter["limit"];
-          data = data.limit(limit);
-        }
-      }
-
-      var result = await data;
-      return result;
     }
+
+    //final data = await _client.from(path).select().eq('uId', id).single();
+    //return data;
+
+    if (filter != null) {
+      if (filter["orderby"] != null) {
+        var orderby = filter["orderby"];
+        var descending = filter["descending"];
+        data = data.order(orderby, ascending: !(descending ?? false));
+      }
+      if (filter["limit"] != null) {
+        var limit = filter["limit"];
+        data = data.limit(limit);
+      }
+    }
+
+    var result = await data;
+    return result;
+  }
+
+  @override
+  Future<void> deleteData(String path, String id) async {
+    await _client.from(path).delete().eq('id', id);
+  }
+
+  @override
+  Future<void> updateData(
+      String path, String id, Map<String, dynamic> data) async {
+    await _client.from(path).update(data).eq('id', id);
   }
 }

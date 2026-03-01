@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_app/core/widgets/app_bar.dart';
+import 'package:fruit_app/core/widgets/custom_app_bar.dart';
 
 import 'widgets/best_selling_view_body.dart';
 

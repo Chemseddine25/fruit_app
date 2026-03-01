@@ -25,13 +25,13 @@ class ReviewsModel {
     );
   }
 
-  factory ReviewsModel.fromJson(Map<String, dynamic> Json) {
+  factory ReviewsModel.fromJson(Map<String, dynamic> json) {
     return ReviewsModel(
-      userName: Json['userName'],
-      userImg: Json['userImg'],
-      ratting: Json['ratting'],
-      date: Json['date'],
-      reviewDescription: Json['reviewDescription'],
+      userName: json['user_name'],
+      userImg: json['user_img'],
+      ratting: json['ratting'],
+      date: json['date'],
+      reviewDescription: json['review_description'],
     );
   }
 
@@ -44,10 +44,10 @@ class ReviewsModel {
       );
 
   toJson() => {
-        'userName': userName,
-        'userImg': userImg,
+        'user_name': userName,
+        'user_img': userImg,
         'ratting': ratting,
         'date': date,
-        'reviewDescription': reviewDescription,
+        'review_description': reviewDescription,
       };
 }

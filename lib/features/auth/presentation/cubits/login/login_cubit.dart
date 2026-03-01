@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:fruit_app/features/auth/domain/entities/user_entity.dart';
 import 'package:fruit_app/features/auth/domain/repos/auth_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'login_state.dart';
 

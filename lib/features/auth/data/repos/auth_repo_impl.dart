@@ -74,7 +74,9 @@ class AuthRepoImpl extends AuthRepo {
       var user = await supbaseAuthService.loginUserFunc(
           email: email, password: password);
 
-      var userEntity = await getUserData(id: user.id);
+      var userEntity = await getUserData(
+        id: user.id,
+      );
       await saveUserData(user: userEntity);
 
       print(userEntity);
@@ -88,23 +90,38 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future adduserData(UserEntity user) {
     return databaseService.addData(
-        BackendEndpoint.addUserData, UserModel.fromEntity(user).toMap());
+      BackendEndpoint.addUserData,
+      UserModel.fromEntity(user).toMap(),
+    );
   }
 
-  Future<UserEntity> getUserData({required String id}) async {
+  @override
+  Future<UserEntity> getUserData({
+    required String id,
+  }) async {
     try {
-      var userData =
-          //await databaseService.getData(BackendEndpoint.addUserData, id);
-          await databaseService.getData(
-              path: BackendEndpoint.addUserData, id: id);
+      // 1. جلب البيانات (الآن دالة getData تعيد List بفضل الـ await الذي أضفناه)
+      final response = await databaseService.getData(
+        queryName: 'uId',
+        path: BackendEndpoint.addUserData,
+        id: id,
+      );
 
-      return UserModel.fromJson(userData);
+      // 2. التأكد أن النتيجة ليست فارغة وهي عبارة عن قائمة
+      if (response != null && response is List && response.isNotEmpty) {
+        // نأخذ العنصر الأول لأنه يمثل المستخدم صاحب الـ ID المطلوب
+        final Map<String, dynamic> firstUser = response.first;
+        return UserModel.fromJson(firstUser);
+      } else {
+        // في حال لم يجد المستخدم في جدول الـ users
+        throw CustomException(message: 'بيانات المستخدم غير موجودة.');
+      }
     } on CustomException {
-      rethrow; // نعيد تمرير الخطأ المخصص الذي أنشأناه في الـ Database
+      rethrow;
     } catch (e) {
       log('Unexpected error in getUserData',
           name: 'AUTH_REPO', error: e, stackTrace: StackTrace.current);
-      throw CustomException(message: e.toString());
+      throw CustomException(message: 'حدث خطأ أثناء جلب بيانات الملف الشخصي.');
     }
   }
 

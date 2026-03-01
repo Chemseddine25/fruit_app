@@ -1,6 +1,7 @@
 import 'package:fruit_app/core/entities/reviews_entity.dart';
 
 class ProductEntity {
+  final String productId;
   final String nameProduct;
   final num priceProduct;
   final num expirationProduct;
@@ -10,11 +11,13 @@ class ProductEntity {
   final String codeProduct;
   final bool isFeatured;
   final bool isOrganic;
+  final int stock;
   String? urlImageProduct;
   final List<ReviewEntity> reviews;
 
   ProductEntity(
-      {required this.nameProduct,
+      {required this.productId,
+      required this.nameProduct,
       required this.priceProduct,
       required this.expirationProduct,
       required this.numberofcaloriesProduct,
@@ -24,5 +27,6 @@ class ProductEntity {
       required this.isFeatured,
       required this.reviews,
       this.isOrganic = false,
+      required this.stock,
       this.urlImageProduct});
 }

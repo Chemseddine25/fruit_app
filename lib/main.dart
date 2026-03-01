@@ -18,6 +18,9 @@ void main() async {
     url: 'https://vogvgpltvaxhkxiqsejq.supabase.co',
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvZ3ZncGx0dmF4aGt4aXFzZWpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0MzI2MzEsImV4cCI6MjA4NTAwODYzMX0.1lI-Yx5BJx4NrhQR-_Aquy52k-wB9myRfs2-KfuDs0Y',
+    authOptions: const FlutterAuthClientOptions(
+      autoRefreshToken: true,
+    ),
   );
 
   await Prefs.init();

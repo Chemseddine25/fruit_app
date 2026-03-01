@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:fruit_app/core/entities/product_entity.dart';
 import 'package:fruit_app/core/errors/failures.dart';
@@ -22,8 +24,12 @@ class ProductsRepoImpl extends ProductsRepo {
       List<ProductEntity> products =
           data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
       return Right(products);
-    } catch (e) {
-      return Left(ServerFailure(" failed to get products"));
+    } catch (e, st) {
+      // <-- استثناء + StackTrace
+      // أطبع الاستثناء الحقيقي
+      log("Error in getProducts: $e");
+      log("StackTrace: $st");
+      return Left(ServerFailure("Failed to get products: $e"));
     }
   }
 
@@ -38,7 +44,8 @@ class ProductsRepoImpl extends ProductsRepo {
 
       return Right(products);
     } catch (e) {
-      return Left(ServerFailure(" failed to get products"));
+      log("Full Error Detail: $e"); // هذا سيظهر لك السبب الحقيقي في الـ Console
+      return Left(ServerFailure(e.toString())); // إرسال الخطأ الحقيقي للواجهة
     }
   }
 }

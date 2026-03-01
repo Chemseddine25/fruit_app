@@ -22,7 +22,7 @@ class CustomChexBox extends StatelessWidget {
         decoration: ShapeDecoration(
           color: isChecked
               ? AppColors.primaryColor
-              : Color.fromARGB(255, 243, 243, 243),
+              : const Color.fromARGB(255, 243, 243, 243),
           shape: RoundedRectangleBorder(
             side: BorderSide(
               width: 1.50,

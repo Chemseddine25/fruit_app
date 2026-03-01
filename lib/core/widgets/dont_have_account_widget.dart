@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_app/core/utils/app_color.dart';
 import 'package:fruit_app/core/utils/test_style.dart';
-import 'package:fruit_app/features/home_view/presentation/views/home_view.dart';
+import 'package:fruit_app/features/main_view/presentation/views/main_view.dart';
 
 class DontHaveAnAccountWidget extends StatelessWidget {
   const DontHaveAnAccountWidget({
@@ -29,7 +29,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
           TextSpan(
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Navigator.pushNamed(context, HomeView.routeName);
+                Navigator.pushNamed(context, MainView.routeName);
               },
             text: 'قم بإنشاء حساب',
             style:
