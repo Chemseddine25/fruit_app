@@ -26,7 +26,7 @@ class InActiveStepItem extends StatelessWidget {
         const SizedBox(
           width: 4,
         ),
-        Text(
+        const Text(
           title,
           style: TextStyles.semiBold13.copyWith(
             color: const Color(0xFFAAAAAA),
