@@ -13,7 +13,7 @@ class CheckoutStepItem extends StatelessWidget {
           return StepItem(
               title: getSteps[index],
               stepNumber: (index + 1).toString(),
-              isSelected: index == currentIndex);
+              isSelected: index <= currentIndex);
         }));
   }
 }
