@@ -41,6 +41,7 @@ class AuthRepoImpl extends AuthRepo {
     }
   }
 
+  @override
   Future<Either<Failure, UserEntity>> singUpUser(
     String name,
     String email,
