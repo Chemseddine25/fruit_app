@@ -16,7 +16,7 @@ class InActiveStepItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
-          radius: 10,
+          radius: 11.5,
           backgroundColor: const Color(0xFFF2F3F3),
           child: Text(
             stepNumber,
@@ -26,7 +26,7 @@ class InActiveStepItem extends StatelessWidget {
         const SizedBox(
           width: 4,
         ),
-        const Text(
+        Text(
           title,
           style: TextStyles.semiBold13.copyWith(
             color: const Color(0xFFAAAAAA),
