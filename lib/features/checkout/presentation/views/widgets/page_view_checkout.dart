@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_app/features/checkout/presentation/views/widgets/adress_input_section.dart';
+import 'package:fruit_app/features/checkout/presentation/views/widgets/payments_section.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/shipping_section.dart';
 
 class CheckoutPageView extends StatelessWidget {
@@ -13,15 +15,19 @@ class CheckoutPageView extends StatelessWidget {
     return PageView.builder(
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
-        itemCount: getpages.length,
+        itemCount: getpages().length,
         itemBuilder: (context, index) {
-          return getpages[index];
+          return getpages()[index];
         });
   }
-}
 
-List<Widget> getpages = [
-  const ShippingSection(),
-  const Text("page 3"),
-  const Text("page 4"),
-];
+  List<Widget> getpages() {
+    return [
+      const ShippingSection(),
+      const AddressInputSection(),
+      PaymentsSection(
+        pageController: controller,
+      ),
+    ];
+  }
+}
