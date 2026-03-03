@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_app/features/checkout/presentation/views/widgets/shipping_section.dart';
 
 class CheckoutPageView extends StatelessWidget {
   const CheckoutPageView({
@@ -20,8 +21,7 @@ class CheckoutPageView extends StatelessWidget {
 }
 
 List<Widget> getpages = [
-  const Text("page 1"),
-  const Text("page 2"),
+  const ShippingSection(),
   const Text("page 3"),
   const Text("page 4"),
 ];
