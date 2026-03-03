@@ -16,6 +16,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   @override
   void initState() {
     pageController = PageController();
+    pageController.addListener(() {
+      setState(() {
+        currentPageIndex = pageController.page!.round();
+      });
+    });
+
     super.initState();
   }
 
@@ -32,7 +38,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       child: Column(
         children: [
           CheckoutStepItem(
-            currentIndex: currentPageIndex,
+            currentPageIndex: currentPageIndex,
+            controller: pageController,
           ),
           const SizedBox(
             height: 20,
@@ -44,8 +51,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
               onPressed: () {
                 setState(() {
                   if (currentPageIndex < getSteps.length - 1) {
-                    currentPageIndex++;
-                    pageController.animateToPage(currentPageIndex,
+                    pageController.animateToPage(currentPageIndex + 1,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeIn);
                   }
