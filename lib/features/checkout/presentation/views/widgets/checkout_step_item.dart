@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_app/features/checkout/presentation/views/widgets/step_items.dart';
+import 'package:fruit_app/features/checkout/presentation/views/step_items.dart';
 
 class CheckoutStepItem extends StatelessWidget {
   const CheckoutStepItem(

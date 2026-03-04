@@ -4,7 +4,9 @@ import 'package:fruit_app/features/checkout/presentation/views/widgets/checkout_
 import 'package:fruit_app/features/checkout/presentation/views/widgets/page_view_checkout.dart';
 
 class CheckoutViewBody extends StatefulWidget {
-  const CheckoutViewBody({super.key});
+  const CheckoutViewBody({
+    super.key,
+  });
 
   @override
   State<CheckoutViewBody> createState() => _CheckoutViewBodyState();
@@ -45,7 +47,9 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             height: 20,
           ),
           Expanded(
-            child: CheckoutPageView(controller: pageController),
+            child: CheckoutPageView(
+              controller: pageController,
+            ),
           ),
           CustomButton(
               onPressed: () {

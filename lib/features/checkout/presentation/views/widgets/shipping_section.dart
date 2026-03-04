@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/shipinig_view.dart';
+import 'package:provider/provider.dart';
 
 class ShippingSection extends StatefulWidget {
   const ShippingSection({
@@ -27,7 +29,7 @@ class _ShippingSectionState extends State<ShippingSection> {
           },
           title: 'الدفع عند الاستلام',
           subTitle: 'التسليم من المكان',
-          price: '40',
+          price: context.read<OrderEntity>().totalPrice.toString(),
           isSelected: selectedIndex == 0,
         ),
         const SizedBox(height: 16),

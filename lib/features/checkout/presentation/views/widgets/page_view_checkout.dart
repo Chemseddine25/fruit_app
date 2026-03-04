@@ -23,7 +23,7 @@ class CheckoutPageView extends StatelessWidget {
 
   List<Widget> getpages() {
     return [
-      const ShippingSection(),
+      ShippingSection(),
       const AddressInputSection(),
       PaymentsSection(
         pageController: controller,
