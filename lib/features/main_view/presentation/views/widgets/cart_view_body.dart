@@ -75,7 +75,8 @@ class CartViewBody extends StatelessWidget {
             child: !isEmpty
                 ? CustomButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, CheckoutView.routeName);
+                      Navigator.pushNamed(context, CheckoutView.routeName,
+                          arguments: favorites);
                     },
                     text:
                         'الدفع ${calculateTotalPrice(favorites).toString()} دج')
