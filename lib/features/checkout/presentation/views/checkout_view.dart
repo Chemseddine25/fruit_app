@@ -16,8 +16,8 @@ class CheckoutView extends StatelessWidget {
       appBar: buildAppBar(context, title: "الشحن", showNotification: false),
       body: Provider.value(
         value: OrderEntity(
-          favoriteEntity: favorite,
-        ),
+            totalPrice: calculateOrderTotalPrice(favorite),
+            favoriteEntity: favorite),
         child: const CheckoutViewBody(),
       ),
     );
