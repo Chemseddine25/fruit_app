@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_app/core/helper_functions/show_error_bar.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/step_items.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutStepItem extends StatelessWidget {
   const CheckoutStepItem(
@@ -15,9 +18,13 @@ class CheckoutStepItem extends StatelessWidget {
           return Expanded(
             child: GestureDetector(
               onTap: () {
-                controller.animateToPage(index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn);
+                if (context.read<OrderEntity>().isPaid != null) {
+                  controller.animateToPage(index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                } else {
+                  showBar(context, message: "يرجي تحديد طريقه الدفع");
+                }
               },
               child: StepItem(
                 title: getSteps[index],
