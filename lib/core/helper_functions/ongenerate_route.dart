@@ -3,6 +3,7 @@ import 'package:fruit_app/features/auth/presentation/views/login_view.dart';
 import 'package:fruit_app/features/auth/presentation/views/singup_view.dart';
 import 'package:fruit_app/features/best_selling_fruits/presentation/views/best_selling_view.dart';
 import 'package:fruit_app/features/checkout/presentation/views/checkout_view.dart';
+import 'package:fruit_app/features/main_view/domain/entities/favorite_entity.dart';
 import 'package:fruit_app/features/main_view/presentation/views/main_view.dart';
 import 'package:fruit_app/features/onbording_view/presentaion/views/onbording_view.dart';
 import 'package:fruit_app/features/splash_view/presentation/views/splash_view.dart';
@@ -36,7 +37,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
     case CheckoutView.routeName:
       return MaterialPageRoute(
-        builder: (context) => const CheckoutView(),
+        builder: (context) => CheckoutView(
+          favorite: settings.arguments as List<FavoriteEntity>,
+        ),
       );
 
     default:
