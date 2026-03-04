@@ -4,13 +4,19 @@ import 'package:fruit_app/features/main_view/domain/entities/favorite_entity.dar
 class OrderEntity {
   final List<FavoriteEntity> favoriteEntity;
   bool? isPaid;
-  num get totalPrice =>
-      favoriteEntity.fold(0, (sum, item) => sum + item.totalPrice());
+
+  final num totalPrice;
+
   final ShpippingAdressEntity? shippingAdressEntity;
 
   OrderEntity({
+    required this.totalPrice,
     required this.favoriteEntity,
     this.isPaid,
     this.shippingAdressEntity,
   });
+}
+
+num calculateOrderTotalPrice(List<FavoriteEntity> items) {
+  return items.fold(0, (sum, item) => sum + item.totalPrice());
 }
