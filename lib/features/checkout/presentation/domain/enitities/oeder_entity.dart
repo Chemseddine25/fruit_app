@@ -7,7 +7,7 @@ class OrderEntity {
 
   final num totalPrice;
 
-  final ShpippingAdressEntity? shippingAdressEntity;
+  ShpippingAdressEntity? shippingAdressEntity;
 
   OrderEntity({
     required this.totalPrice,

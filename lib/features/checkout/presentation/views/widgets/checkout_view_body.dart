@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_app/core/helper_functions/show_error_bar.dart';
 import 'package:fruit_app/core/widgets/custom_boutton.dart';
+import 'package:fruit_app/features/checkout/data/models/oreder_model.dart';
 import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/checkout_step_item.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/page_view_checkout.dart';
@@ -56,19 +57,39 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           ),
           CustomButton(
               onPressed: () {
-                setState(() {
+                if (currentPageIndex == 0) {
                   if (context.read<OrderEntity>().isPaid != null) {
-                    pageController.animateToPage(currentPageIndex + 1,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeIn);
+                    navigatioCheckoutView();
                   } else {
                     showBar(context, message: "يرجي تحديد طريقه الدفع");
                   }
-                });
+                } else {
+                  if (currentPageIndex == 1) {
+                    final checkout = context.read<CheckoutProvider>();
+                    final order = context.read<OrderEntity>();
+                    bool isValid = checkout.saveAddress();
+
+                    if (isValid) {
+                      // تحديث الـ OrderEntity بالعنوان الجديد قبل الانتقال
+                      order.shippingAdressEntity = checkout.shippingAdress;
+
+                      print(
+                          "this is address Name: ${order.shippingAdressEntity?.name}");
+                      print(
+                          "this is address City: ${order.shippingAdressEntity?.city}");
+                      navigatioCheckoutView();
+                    }
+                  }
+                }
               },
               text: 'مرحلة: ${getSteps[currentPageIndex]}'),
         ],
       ),
     );
+  }
+
+  void navigatioCheckoutView() {
+    pageController.animateToPage(currentPageIndex + 1,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
   }
 }

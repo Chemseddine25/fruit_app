@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_app/core/helper_functions/show_error_bar.dart';
+import 'package:fruit_app/features/checkout/data/models/oreder_model.dart';
 import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/step_items.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +19,30 @@ class CheckoutStepItem extends StatelessWidget {
           return Expanded(
             child: GestureDetector(
               onTap: () {
-                if (context.read<OrderEntity>().isPaid != null) {
+                final checkout = context.read<CheckoutProvider>();
+                final order = context.read<OrderEntity>();
+                if (index < currentPageIndex) {
                   controller.animateToPage(index,
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeIn);
-                } else {
-                  showBar(context, message: "يرجي تحديد طريقه الدفع");
+                  return; // نخرج من الدالة ولا نكمل بقية الشروط
+                }
+                if (index == 1) {
+                  if (order.isPaid != null) {
+                    controller.animateToPage(index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeIn);
+                  } else {
+                    showBar(context, message: "يرجى تحديد طريقة الدفع أولاً");
+                  }
+                } else if (index == 2) {
+                  bool isValid = checkout.saveAddress();
+                  if (isValid) {
+                    order.shippingAdressEntity = checkout.shippingAdress;
+                    controller.animateToPage(index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeIn);
+                  } else {}
                 }
               },
               child: StepItem(

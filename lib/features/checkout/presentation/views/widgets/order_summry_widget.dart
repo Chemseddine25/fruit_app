@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_app/core/utils/test_style.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
 
 import 'payment_item.dart';
 
@@ -23,8 +25,8 @@ class OrderSummryWidget extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Text(
-                ' 150جنيه',
+              Text(
+                ' ${context.read<OrderEntity>().totalPrice}جنيه',
                 textAlign: TextAlign.right,
                 style: TextStyles.semiBold16,
               )
@@ -61,15 +63,15 @@ class OrderSummryWidget extends StatelessWidget {
           const SizedBox(
             height: 9,
           ),
-          const Row(
+          Row(
             children: [
-              Text(
+              const Text(
                 'الكلي',
                 style: TextStyles.bold16,
               ),
-              Spacer(),
+              const Spacer(),
               Text(
-                ' 180 جنيه',
+                ' ${context.read<OrderEntity>().totalPrice + 30} جنيه',
                 style: TextStyles.bold16,
               )
             ],
