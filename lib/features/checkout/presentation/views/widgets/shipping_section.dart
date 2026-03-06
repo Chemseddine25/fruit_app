@@ -28,11 +28,11 @@ class _ShippingSectionState extends State<ShippingSection>
             setState(() {
               selectedIndex = 0;
             });
-            context.read<OrderEntity>().isPaid = false;
+            context.read<OrderInputEntity>().isPaid = false;
           },
           title: 'الدفع عند الاستلام',
           subTitle: 'التسليم من المكان',
-          price: context.read<OrderEntity>().totalPrice.toString(),
+          price: context.read<OrderInputEntity>().totalPrice.toString(),
           isSelected: selectedIndex == 0,
         ),
         const SizedBox(height: 16),
@@ -47,7 +47,7 @@ class _ShippingSectionState extends State<ShippingSection>
                 selectedIndex = 1;
               },
             );
-            context.read<OrderEntity>().isPaid = true;
+            context.read<OrderInputEntity>().isPaid = true;
           },
         ),
       ],
