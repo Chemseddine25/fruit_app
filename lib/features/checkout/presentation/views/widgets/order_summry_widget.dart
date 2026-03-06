@@ -26,7 +26,7 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                ' ${context.read<OrderEntity>().totalPrice}جنيه',
+                ' ${context.read<OrderInputEntity>().totalPrice}جنيه',
                 textAlign: TextAlign.right,
                 style: TextStyles.semiBold16,
               )
@@ -71,7 +71,7 @@ class OrderSummryWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                ' ${context.read<OrderEntity>().totalPrice + 30} جنيه',
+                ' ${context.read<OrderInputEntity>().totalPrice + 30} جنيه',
                 style: TextStyles.bold16,
               )
             ],
