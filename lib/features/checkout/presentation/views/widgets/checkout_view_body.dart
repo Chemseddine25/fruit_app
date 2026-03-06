@@ -58,7 +58,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           CustomButton(
               onPressed: () {
                 if (currentPageIndex == 0) {
-                  if (context.read<OrderEntity>().isPaid != null) {
+                  if (context.read<OrderInputEntity>().isPaid != null) {
                     navigatioCheckoutView();
                   } else {
                     showBar(context, message: "يرجي تحديد طريقه الدفع");
@@ -66,17 +66,17 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 } else {
                   if (currentPageIndex == 1) {
                     final checkout = context.read<CheckoutProvider>();
-                    final order = context.read<OrderEntity>();
+                    final order = context.read<OrderInputEntity>();
                     bool isValid = checkout.saveAddress();
 
                     if (isValid) {
                       // تحديث الـ OrderEntity بالعنوان الجديد قبل الانتقال
-                      order.shippingAdressEntity = checkout.shippingAdress;
+                      order.shippingAddress = checkout.shippingAdress;
 
                       print(
-                          "this is address Name: ${order.shippingAdressEntity?.name}");
+                          "this is address Name: ${order.shippingAddress?.name}");
                       print(
-                          "this is address City: ${order.shippingAdressEntity?.city}");
+                          "this is address City: ${order.shippingAddress?.city}");
                       navigatioCheckoutView();
                     }
                   }
