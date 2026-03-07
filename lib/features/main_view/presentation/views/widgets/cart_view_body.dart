@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_app/core/helper_functions/calculte_total_price.dart';
 import 'package:fruit_app/core/widgets/custom_app_bar.dart';
 import 'package:fruit_app/core/widgets/custom_boutton.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/odrer_item_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/checkout_view.dart';
 import 'package:fruit_app/features/main_view/domain/entities/favorite_entity.dart';
 import 'package:fruit_app/features/main_view/presentation/views/widgets/cart_header.dart';
@@ -75,8 +76,19 @@ class CartViewBody extends StatelessWidget {
             child: !isEmpty
                 ? CustomButton(
                     onPressed: () {
+                      final List<OrderItemEntity> items = favorites.map((e) {
+                        return OrderItemEntity(
+                          productId: e.productId,
+                          name: e.productEntity.nameProduct,
+                          price: e.productEntity.priceProduct,
+                          quantity: e
+                              .quanitty, // انتبه للسبيلنج عندك في Entity (quanitty)
+                          imageUrl: e.productEntity.urlImageProduct,
+                        );
+                      }).toList();
+
                       Navigator.pushNamed(context, CheckoutView.routeName,
-                          arguments: favorites);
+                          arguments: items);
                     },
                     text:
                         'الدفع ${calculateTotalPrice(favorites).toString()} دج')

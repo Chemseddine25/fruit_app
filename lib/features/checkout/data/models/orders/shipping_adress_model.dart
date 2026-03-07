@@ -1,4 +1,4 @@
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/shippinig_adress_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/shippinig_adress_entity.dart';
 
 class ShippingAddressModel {
   final String name;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_app/core/utils/test_style.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/order_input_entity.dart';
 
 import 'payment_item.dart';
 

@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fruit_app/core/helper_functions/show_error_bar.dart';
+import 'package:fruit_app/core/services/paypal_service.dart';
 import 'package:fruit_app/core/widgets/custom_boutton.dart';
 import 'package:fruit_app/features/checkout/data/models/oreder_model.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/order_input_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/paypel_enity.dart';
+import 'package:fruit_app/features/checkout/presentation/manager/add_order_cubit/add_order_cubit.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/checkout_step_item.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/page_view_checkout.dart';
 import 'package:provider/provider.dart';
@@ -57,6 +62,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           ),
           CustomButton(
               onPressed: () {
+                final order = context.read<OrderInputEntity>();
                 if (currentPageIndex == 0) {
                   if (context.read<OrderInputEntity>().isPaid != null) {
                     navigatioCheckoutView();
@@ -66,7 +72,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                 } else {
                   if (currentPageIndex == 1) {
                     final checkout = context.read<CheckoutProvider>();
-                    final order = context.read<OrderInputEntity>();
+
                     bool isValid = checkout.saveAddress();
 
                     if (isValid) {
@@ -78,7 +84,25 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                       print(
                           "this is address City: ${order.shippingAddress?.city}");
                       navigatioCheckoutView();
-                    }
+                    } else {}
+                  } else if (currentPageIndex == 2) {
+                    final paypalPayment = PaypalPaymentEntity.fromEntity(order);
+                    PaypalService().payWithPaypal(
+                        context: context,
+                        paymentEntity: paypalPayment,
+                        onSuccess: (Map params) async {
+                          print("yes");
+                          log("this order: $paypalPayment");
+                        },
+                        onCancel: () {
+                          print("cancel");
+                        },
+                        onError: (error) {
+                          Navigator.pop(context);
+                          log(error.toString());
+                          showBar(context, message: 'حدث خطأ في عملية الدفع');
+                        });
+                    //context.read<AddOrderCubit>().addOrder(orderInput: order);
                   }
                 }
               },

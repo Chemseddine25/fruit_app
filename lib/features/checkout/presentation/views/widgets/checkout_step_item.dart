@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_app/core/helper_functions/show_error_bar.dart';
 import 'package:fruit_app/features/checkout/data/models/oreder_model.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/order_input_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/step_items.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ class CheckoutStepItem extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 final checkout = context.read<CheckoutProvider>();
-                final order = context.read<OrderEntity>();
+                final order = context.read<OrderInputEntity>();
                 if (index < currentPageIndex) {
                   controller.animateToPage(index,
                       duration: const Duration(milliseconds: 300),
@@ -38,7 +38,7 @@ class CheckoutStepItem extends StatelessWidget {
                 } else if (index == 2) {
                   bool isValid = checkout.saveAddress();
                   if (isValid) {
-                    order.shippingAdressEntity = checkout.shippingAdress;
+                    order.shippingAddress = checkout.shippingAdress;
                     controller.animateToPage(index,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeIn);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/oeder_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/order_input_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/shipinig_view.dart';
 import 'package:provider/provider.dart';
 
