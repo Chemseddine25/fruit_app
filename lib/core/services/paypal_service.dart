@@ -24,7 +24,7 @@ class PaypalService {
           transactions: [
             paymentEntity.toJson(),
           ],
-          note: "Contact us for any questions.",
+          note: "Contact us for any questions. ",
           onSuccess: onSuccess,
           onError: onError,
           onCancel: onCancel,
