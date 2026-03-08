@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/order_input_entity.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/amount.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/paypel_details_entity.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/paypel_item_entity.dart';
-import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/paypel_item_list_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/amount_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/details_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/item_entity.dart';
+import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel_entities/item_list_entity.dart';
 
 class PaypalPaymentEntity {
   AmountEntity? amount;
@@ -17,7 +17,7 @@ class PaypalPaymentEntity {
   factory PaypalPaymentEntity.fromEntity(OrderInputEntity entity) {
     return PaypalPaymentEntity(
       amount: AmountEntity.fromEntity(entity),
-      description: "Fruits Order",
+      description: "Payment for order 12345",
       itemList: ItemListEntity.fromEntity(
           entity.items.map((item) => ItemEntity.fromEntity(item)).toList()),
     );
