@@ -2,4 +2,8 @@
   "devDependencies": {
     "supabase": "^2.74.5"
   }
+,
+  "scripts": {
+  "emulator": "\"C:\\Users\\lenovo\\AppData\\Local\\Android\\Sdk\\emulator\\emulator.exe\" -avd flutter_emulator_10 -gpu swiftshader_indirect"
+}
 }
