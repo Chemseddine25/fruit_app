@@ -4,6 +4,7 @@ import 'package:fruit_app/features/auth/presentation/views/singup_view.dart';
 import 'package:fruit_app/features/best_selling_fruits/presentation/views/best_selling_view.dart';
 import 'package:fruit_app/features/checkout/presentation/domain/enitities/order_entities/odrer_item_entity.dart';
 import 'package:fruit_app/features/checkout/presentation/views/checkout_view.dart';
+import 'package:fruit_app/features/main_view/presentation/views/cart_view.dart';
 import 'package:fruit_app/features/main_view/presentation/views/main_view.dart';
 import 'package:fruit_app/features/onbording_view/presentaion/views/onbording_view.dart';
 import 'package:fruit_app/features/splash_view/presentation/views/splash_view.dart';
@@ -33,6 +34,11 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case BestSellingView.routeName:
       return MaterialPageRoute(
         builder: (context) => const BestSellingView(),
+      );
+
+    case CartView.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const CartView(),
       );
 
     case CheckoutView.routeName:
