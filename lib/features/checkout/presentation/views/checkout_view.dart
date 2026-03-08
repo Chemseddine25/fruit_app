@@ -13,10 +13,25 @@ import 'package:provider/provider.dart';
 
 import '../manager/add_order_cubit/add_order_cubit.dart';
 
-class CheckoutView extends StatelessWidget {
+class CheckoutView extends StatefulWidget {
   const CheckoutView({super.key, required this.order});
   static const routeName = 'checkout';
   final List<OrderItemEntity> order;
+
+  @override
+  State<CheckoutView> createState() => _CheckoutViewState();
+}
+
+class _CheckoutViewState extends State<CheckoutView> {
+  late OrderInputEntity orderEntity;
+  @override
+  void initState() {
+    super.initState();
+    orderEntity = OrderInputEntity(
+        userId: getUserData().uId,
+        items: widget.order,
+        totalPrice: OrderInputEntity.calculateFinalPrice(widget.order));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +42,7 @@ class CheckoutView extends StatelessWidget {
                   getIt.get<OrderRepo>(),
                 )),
         Provider.value(
-          value: OrderInputEntity(
-              userId: getUserData().uId,
-              items: order,
-              totalPrice: OrderInputEntity.calculateFinalPrice(order)),
+          value: orderEntity,
         ),
         ChangeNotifierProvider(
           create: (context) => CheckoutProvider(),
