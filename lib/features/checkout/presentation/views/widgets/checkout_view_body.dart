@@ -10,6 +10,7 @@ import 'package:fruit_app/features/checkout/presentation/domain/enitities/paypel
 import 'package:fruit_app/features/checkout/presentation/manager/add_order_cubit/add_order_cubit.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/checkout_step_item.dart';
 import 'package:fruit_app/features/checkout/presentation/views/widgets/page_view_checkout.dart';
+import 'package:fruit_app/features/main_view/presentation/views/cart_view.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutViewBody extends StatefulWidget {
@@ -87,22 +88,22 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                     } else {}
                   } else if (currentPageIndex == 2) {
                     final paypalPayment = PaypalPaymentEntity.fromEntity(order);
+                    var addOrderCubit = context.read<AddOrderCubit>();
                     PaypalService().payWithPaypal(
                         context: context,
                         paymentEntity: paypalPayment,
                         onSuccess: (Map params) async {
-                          print("yes");
-                          log("this order: $paypalPayment");
+                          Navigator.pop(context);
+                          addOrderCubit.addOrder(orderInput: order);
                         },
                         onCancel: () {
-                          print("cancel");
+                          Navigator.pop(context);
                         },
                         onError: (error) {
                           Navigator.pop(context);
                           log(error.toString());
                           showBar(context, message: 'حدث خطأ في عملية الدفع');
                         });
-                    //context.read<AddOrderCubit>().addOrder(orderInput: order);
                   }
                 }
               },
