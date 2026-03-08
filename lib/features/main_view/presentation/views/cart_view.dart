@@ -3,6 +3,7 @@ import 'package:fruit_app/features/main_view/presentation/views/widgets/cart_vie
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
+  static const routeName = 'cart';
 
   @override
   Widget build(BuildContext context) {
